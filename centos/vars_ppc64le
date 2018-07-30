@@ -1,0 +1,20 @@
+BASE_URL="http://mirror.centos.org/altarch/${VERSION}/os/${ARCH}"
+
+KICKSTART="${VERSION}_${ARCH}.ks"
+
+VMLINUX="${BASE_URL}/ppc/ppc64/vmlinuz"
+INITRD="${BASE_URL}/ppc/ppc64/initrd.img"
+
+LOCAL_VMLINUX=$(basename ${VMLINUX})_${DISTRO}_${VERSION}_${ARCH}
+LOCAL_INITRD=$(basename ${INITRD})_${DISTRO}_${VERSION}_${ARCH}
+
+QEMU_CAP_HTM=",cap-htm=off"
+
+if [ "$(uname -m)" = "ppc64" -o "$(uname -m)" = "ppc64le" ]; then
+    KVM_OPTS="-enable-kvm -smp cores=16,threads=1,sockets=1"
+    QEMU_CAP_HTM=
+fi
+
+QEMU="qemu-system-ppc64"
+QEMU_OPTS="${QEMU_OPTS} -M pseries${QEMU_CAP_HTM}"
+QEMU_APPEND="ks=file:/${KICKSTART} console=hvc0 verbose"

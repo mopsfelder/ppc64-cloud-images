@@ -1,0 +1,23 @@
+BASE_URL="https://dl.fedoraproject.org/pub/fedora-secondary/releases/${VERSION}/Everything/${ARCH}/os"
+if [ "${VERSION}" = "rawhide" ]; then
+    BASE_URL="https://dl.fedoraproject.org/pub/fedora-secondary/development/rawhide/Everything/${ARCH}/os"
+fi
+
+KICKSTART="${VERSION}_${ARCH}.ks"
+
+VMLINUX="${BASE_URL}/ppc/ppc64/vmlinuz"
+INITRD="${BASE_URL}/ppc/ppc64/initrd.img"
+
+LOCAL_VMLINUX=$(basename ${VMLINUX})_${DISTRO}_${VERSION}_${ARCH}
+LOCAL_INITRD=$(basename ${INITRD})_${DISTRO}_${VERSION}_${ARCH}
+
+QEMU_CAP_HTM=",cap-htm=off"
+
+if [ "$(uname -m)" = "ppc64" -o "$(uname -m)" = "ppc64le" ]; then
+    KVM_OPTS="-enable-kvm -smp cores=16,threads=1,sockets=1"
+    QEMU_CAP_HTM=
+fi
+
+QEMU="qemu-system-ppc64"
+QEMU_OPTS="${QEMU_OPTS} -M pseries${QEMU_CAP_HTM}"
+QEMU_APPEND="inst.ks=file:/${KICKSTART} inst.repo=${BASE_URL} console=hvc0 verbose"

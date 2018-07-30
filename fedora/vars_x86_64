@@ -1,0 +1,16 @@
+BASE_URL="https://dl.fedoraproject.org/pub/fedora/linux/releases/${VERSION}/Everything/x86_64/os"
+if [ "${VERSION}" = "rawhide" ]; then
+    BASE_URL="https://dl.fedoraproject.org/pub/fedora/linux/development/rawhide/Everything/x86_64/os"
+fi
+
+KICKSTART="${VERSION}_${ARCH}.ks"
+
+VMLINUX="${BASE_URL}/isolinux/vmlinuz"
+INITRD="${BASE_URL}/isolinux/initrd.img"
+
+LOCAL_VMLINUX=$(basename $VMLINUX)_${DISTRO}_${VERSION}_${ARCH}
+LOCAL_INITRD=$(basename $INITRD)_${DISTRO}_${VERSION}_${ARCH}
+
+QEMU="qemu-system-x86_64"
+QEMU_OPTS="${QEMU_OPTS} -M pc"
+QEMU_APPEND="inst.ks=file:/${KICKSTART} inst.repo=${BASE_URL} console=ttyS0 verbose"
