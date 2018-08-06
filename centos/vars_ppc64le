@@ -16,5 +16,5 @@ if [ "$(uname -m)" = "ppc64" -o "$(uname -m)" = "ppc64le" ]; then
 fi
 
 QEMU="qemu-system-ppc64"
-QEMU_OPTS="${QEMU_OPTS} -M pseries${QEMU_CAP_HTM}"
+QEMU_OPTS="${KVM_OPTS} ${QEMU_OPTS} -M pseries${QEMU_CAP_HTM}"
 QEMU_APPEND="ks=file:/${KICKSTART} console=hvc0 verbose"

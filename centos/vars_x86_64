@@ -13,5 +13,5 @@ if [ "$(uname -m)" = "x86_64" ]; then
 fi
 
 QEMU="qemu-system-x86_64"
-QEMU_OPTS="${QEMU_OPTS} -M pc"
+QEMU_OPTS="${KVM_OPTS} ${QEMU_OPTS} -M pc"
 QEMU_APPEND="ks=file:/${KICKSTART} console=ttyS0 verbose"

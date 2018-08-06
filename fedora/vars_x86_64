@@ -11,6 +11,10 @@ INITRD="${BASE_URL}/isolinux/initrd.img"
 LOCAL_VMLINUX=$(basename $VMLINUX)_${DISTRO}_${VERSION}_${ARCH}
 LOCAL_INITRD=$(basename $INITRD)_${DISTRO}_${VERSION}_${ARCH}
 
+if [ "$(uname -m)" = "x86_64" ]; then
+    KVM_OPTS="-enable-kvm -smp cores=4,threads=1,sockets=1"
+fi
+
 QEMU="qemu-system-x86_64"
-QEMU_OPTS="${QEMU_OPTS} -M pc"
+QEMU_OPTS="${KVM_OPTS} ${QEMU_OPTS} -M pc"
 QEMU_APPEND="inst.ks=file:/${KICKSTART} inst.repo=${BASE_URL} console=ttyS0 verbose"

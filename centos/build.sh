@@ -16,6 +16,6 @@ echo ${KICKSTART} | cpio -ovH newc >> ${TMP_INITRD}
 
 img_create
 
-${QEMU} ${KVM_OPTS} ${QEMU_OPTS} -drive file=${ISO},media=cdrom -drive file=${TMP_IMAGE} -kernel ${VMLINUX} -initrd ${TMP_INITRD} -append "${QEMU_APPEND}"
+${QEMU} ${QEMU_OPTS} -drive file=${ISO},media=cdrom -drive file=${TMP_IMAGE} -kernel ${VMLINUX} -initrd ${TMP_INITRD} -append "${QEMU_APPEND}"
 
 img_convert
