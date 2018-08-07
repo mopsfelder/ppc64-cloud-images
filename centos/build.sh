@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 . ${PWD}/vars_${ARCH}
 
