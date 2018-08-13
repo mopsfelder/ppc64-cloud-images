@@ -19,6 +19,13 @@ Examples:
     $ ./build.sh fedora rawhide ppc64
     $ ./build.sh fedora rawhide ppc64le
     $ ./build.sh fedora rawhide x86_64
+    $ ./build.sh ubuntu 14.04 ppc64
+    $ ./build.sh ubuntu 14.04 x86_64
+    $ ./build.sh ubuntu 16.04 ppc64
+    $ ./build.sh ubuntu 16.04 ppc64le
+    $ ./build.sh ubuntu 16.04 x86_64
+    $ ./build.sh ubuntu 18.04 ppc64le
+    $ ./build.sh ubuntu 18.04 x86_64
 
 Images are created with:
 - login/password: `user/user`

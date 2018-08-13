@@ -1,0 +1,26 @@
+case $VERSION in
+14.04) UBUNTU_RELEASE=trusty ;;
+16.04) UBUNTU_RELEASE=xenial ;;
+18.04) UBUNTU_RELEASE=bionic ;;
+esac
+
+case $ARCH in
+ppc64)   BASE_URL="http://ports.ubuntu.com/ubuntu-ports/dists/${UBUNTU_RELEASE}-updates/main/installer-powerpc/current/images/powerpc64/netboot" ;;
+ppc64le) BASE_URL="http://ports.ubuntu.com/ubuntu-ports/dists/${UBUNTU_RELEASE}-updates/main/installer-ppc64el/current/images/netboot/ubuntu-installer/ppc64el" ;;
+esac
+
+PRESEED="preseed.cfg"
+
+VMLINUX="${BASE_URL}/vmlinux"
+INITRD="${BASE_URL}/initrd.gz"
+
+LOCAL_VMLINUX=$(basename $VMLINUX)_${DISTRO}_${VERSION}_${ARCH}
+LOCAL_INITRD=$(basename $INITRD)_${DISTRO}_${VERSION}_${ARCH}
+
+case $(uname -m) in
+ppc64*) KVM_OPTS="-enable-kvm -smp cores=16,threads=1,sockets=1" ;;
+esac
+
+QEMU="qemu-system-ppc64"
+QEMU_OPTS="${KVM_OPTS} ${QEMU_OPTS} -M pseries"
+QEMU_APPEND="console=hvc0 verbose"

@@ -1,0 +1,23 @@
+case $VERSION in
+14.04) UBUNTU_RELEASE=trusty ;;
+16.04) UBUNTU_RELEASE=xenial ;;
+18.04) UBUNTU_RELEASE=bionic ;;
+esac
+
+BASE_URL="http://archive.ubuntu.com/ubuntu/dists/${UBUNTU_RELEASE}-updates/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64"
+
+PRESEED="preseed.cfg"
+
+VMLINUX="${BASE_URL}/linux"
+INITRD="${BASE_URL}/initrd.gz"
+
+LOCAL_VMLINUX=$(basename $VMLINUX)_${DISTRO}_${VERSION}_${ARCH}
+LOCAL_INITRD=$(basename $INITRD)_${DISTRO}_${VERSION}_${ARCH}
+
+if [ "$(uname -m)" = "x86_64" ]; then
+    KVM_OPTS="-enable-kvm -smp cores=8,threads=1,sockets=1"
+fi
+
+QEMU="qemu-system-x86_64"
+QEMU_OPTS="${KVM_OPTS} ${QEMU_OPTS} -M pc"
+QEMU_APPEND="console=ttyS0 verbose"
