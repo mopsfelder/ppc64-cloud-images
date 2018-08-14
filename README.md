@@ -9,6 +9,7 @@ Usage:
 
 Examples:
 
+    $ export IMAGE_SIZE=160G
     $ ./build.sh centos 6 x86_64
     $ ./build.sh centos 7 ppc64
     $ ./build.sh centos 7 ppc64le

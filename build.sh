@@ -9,7 +9,7 @@ ARCH="${3}"
 QEMU_NET="-netdev user,id=n0 -device virtio-net-pci,netdev=n0" # compatible with qemu 2.3 (PowerKVM)
 QEMU_OPTS="-m 4G -nographic -nodefaults -serial mon:stdio ${QEMU_NET}"
 
-IMAGE_SIZE="16G"
+IMAGE_SIZE="${IMAGE_SIZE:-16G}"
 IMAGE="${DISTRO}_${VERSION}_${ARCH}.qcow2"
 
 TMP_IMAGE="$$.qcow2"
