@@ -2,6 +2,7 @@ case $VERSION in
 14.04) UBUNTU_RELEASE=trusty ;;
 16.04) UBUNTU_RELEASE=xenial ;;
 18.04) UBUNTU_RELEASE=bionic ;;
+20.04) UBUNTU_RELEASE=focal  ;;
 esac
 
 case $ARCH in
